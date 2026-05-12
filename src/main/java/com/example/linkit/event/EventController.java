@@ -4,6 +4,7 @@ import com.example.linkit.subscriber.SubscriberService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.linkit.delivery.DeliveryService;
 import com.example.linkit.subscriber.SubscriberEntity;
 
 import java.util.List;
@@ -19,10 +20,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class EventController {
     private final SubscriberService subscriberService;
     private final EventService service; 
+    private final DeliveryService deliveryService;
 
-    public EventController(EventService service, SubscriberService subscriberService){
+    public EventController(EventService service, SubscriberService subscriberService, DeliveryService deliveryService){
         this.service = service;
         this.subscriberService = subscriberService;
+        this.deliveryService = deliveryService;
     }
 
     @GetMapping
@@ -42,7 +45,16 @@ public class EventController {
     
     @PostMapping
     public EventEntity create(@RequestBody EventEntity event){
-        return service.create(event);
+        EventEntity eventCreated = service.create(event);
+        Long sub_id = eventCreated.getSubscriber().getId();
+        Optional<SubscriberEntity> sub = subscriberService.findById(sub_id);
+        if(sub.isPresent()){
+            System.out.println(sub.get());
+            eventCreated.setSubscriber(sub.get());
+            deliveryService.deliver(eventCreated);
+            return eventCreated;
+        }
+        return eventCreated;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.linkit.subscriber;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/subscriber")
@@ -21,6 +24,11 @@ public class SubscriberController {
     @GetMapping
     public List<SubscriberEntity> getAll(){
         return service.getAll(); 
+    }
+
+    @GetMapping("/{id}")
+    public Optional<SubscriberEntity>find(@PathVariable("id") Long id){
+        return service.findById(id);
     }
 
     @PostMapping

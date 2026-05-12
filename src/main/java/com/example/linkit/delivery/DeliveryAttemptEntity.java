@@ -1,4 +1,4 @@
-package com.example.linkit.deliveryAttempt;
+package com.example.linkit.delivery;
 
 import java.time.LocalDateTime;
 
@@ -13,10 +13,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class DeliveryAttemptEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +30,7 @@ public class DeliveryAttemptEntity {
     DeliveryStatus status; 
 
     Integer statusCode;
-    Double responseTimeMs;
+    Long responseTimeMs;
 
     @CreationTimestamp
     LocalDateTime attemptedAt;

@@ -1,4 +1,4 @@
-package com.example.linkit.deliveryAttempt;
+package com.example.linkit.delivery;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;

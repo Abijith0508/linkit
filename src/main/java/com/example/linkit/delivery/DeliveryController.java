@@ -1,4 +1,4 @@
-package com.example.linkit.deliveryAttempt;
+package com.example.linkit.delivery;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
