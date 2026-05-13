@@ -51,6 +51,7 @@ public class EventController {
         if(sub.isPresent()){
             System.out.println(sub.get());
             eventCreated.setSubscriber(sub.get());
+            eventCreated.setStatus(Status.PENDING);
             deliveryService.deliver(eventCreated);
             return eventCreated;
         }
